@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<title>Fixed top navbar example for Bootstrap</title>
+
+		<link
+			rel="canonical"
+			href="https://getbootstrap.com/docs/4.0/examples/navbar-fixed/"
+		/>
+
+		<!-- CSS only -->
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous"
+		/>
+		<script src="pdfmake/build/pdfmake.min.js"></script>
+		<script src="pdfmake/build/pdfmake.js"></script>
+		<script src="pdfmake/build/vfs_fonts.js"></script>
+	</head>
+
+	<body>
+		<main role="main" class="container">
+			<button onclick="printPdf()">Print</button>
+			<button onclick="downloadPdf()">Download</button>
+			<button onclick="openPdf()">Open</button>
+		</main>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+
+		<!-- JS, Popper.js, and jQuery -->
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- <script src="pdfmake/examples/basics.js"></script> -->
+
+		<script>
+			var chartLines = [];
+			var chartText = [];
+			var chart = [{ stack: chartText }, { canvas: chartLines }];
+
+			var fonts = {
+				Roboto: {
+					normal: "fonts/Roboto-Regular.ttf",
+					bold: "fonts/Roboto-Medium.ttf",
+					italics: "fonts/Roboto-Italic.ttf",
+					bolditalics: "fonts/Roboto-MediumItalic.ttf"
+				}
+			};
+
+			var docDefinition = {
+				// ownerPassword: "123456",
+				// permissions: {
+				// 	printing: "highResolution", //'lowResolution'
+				// 	modifying: false,
+				// 	copying: false,
+				// 	annotating: true,
+				// 	fillingForms: true,
+				// 	contentAccessibility: true,
+				// 	documentAssembly: true
+				// },
+				watermark: {
+					text: "test watermark",
+					color: "blue",
+					opacity: 0.3,
+					bold: true,
+					italics: false
+				},
+				// content: [
+				// 	"First paragraph",
+				// 	"Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines"
+				// ]
+				content: [
+					{
+						text: "We sometimes don't know the absolute position of text",
+						margin: [10, 0, 0, 50]
+					},
+					{
+						columns: [
+							{ width: "50%", text: "horizontal position is not known either" },
+							{ width: "50%", stack: chart }
+						]
+					},
+					{
+						text: "We can position relative with center and right alignment",
+						margin: [0, 50, 0, 50]
+					},
+					{
+						table: {
+							widths: [100, 100, 100],
+							body: [
+								[
+									"Column with a lot of text. Column with a lot of text. Column with a lot of text. Column with a lot of text.",
+									{
+										text: "I'm aligned center",
+										style: {
+											alignment: "center"
+										},
+										relativePosition: {
+											x: 0,
+											y: 25
+										}
+									},
+									{
+										text: "I'm aligned right",
+										style: {
+											alignment: "right"
+										},
+										relativePosition: {
+											x: 0,
+											y: 25
+										}
+									}
+								]
+							]
+						}
+					}
+				]
+			};
+
+			function printPdf() {
+				pdfMake.createPdf(docDefinition).print();
+			}
+
+			function openPdf() {
+				pdfMake.createPdf(docDefinition).open();
+			}
+
+			function downloadPdf() {
+				pdfMake.createPdf(docDefinition).download("sample.pdf");
+			}
+		</script>
+	</body>
+</html>
